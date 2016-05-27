@@ -1,25 +1,17 @@
-# HappinessIndex 
+#Happiness Index<br>
 
-![](Images/HappinessIndexIoT.jpg)
-> HappinessIndex
+This project is started in a hackathon. An [IoT set](http://www.robotistan.com/raspberry-pi-2-microsoft-iot-seti) containing a Raspberry PI 2, sensors and standard electronic components is supplied each team. <br>
+In our project we worked on a scenario which our device and a camera is located right next to the teller who is talking to a customer in a bank's branch. UWP app running on RPI2 takes  the picture of the customer from time-to-time and processeses. This system is running on each and every teller in all the branches of the bank. As we already know the customer  because teller already opened up the bank's standard banking app when they first welcomed the customer. We pass all those pictures taken to Microsoft Cognitive Services and receive the emotional data from it. 
 
-## Prerequisites
-1. You must have Visual Studio 2015.
-2. You must have Visual Studio 2015 and the Windows Software Development Kit (SDK) for Windows 10 (10.0.10560.0) installed. https://dev.windows.com/en-us/downloads/windows-10-sdk
+Please remember that we are getting this data from all the customers sitting in front of a teller. Imagine the scenario that the bank using this "solution" is just released a new banking product (a new credit card, a new mortgage package etc.) and asks their tellers to offer this new product to suitable customers in all their meetings in the bank branch. Bank management would easily see if the customers like the new product/ofer by looking at the customer's emotions date which is centralized in a Power BI dashboard.
 
-## Build the sample
-1. If you download the samples ZIP, be sure to unzip the entire archive, not just the folder with the sample you want to build. 
-2. Start Microsoft Visual Studio 2015 and select **File** \> **Open** \> **Project/Solution**.
-3. Starting in the folder where you unzipped the samples, go to the Samples subfolder, then the subfolder for this specific sample, then the subfolder for your preferred language (C++ or C#). Double-click the Visual Studio 2015 Solution (.sln) file.
-4. Press Ctrl+Shift+B, or select **Build** \> **Build Solution**.
+Technically, we attached a webcam to RPI2 and developed a Windows UWP app taking pictures of the person in front of the camera continously and sending the picture to Emotions API in MS Cognitive Services (former name ProjectOxford.ai) and took the emotion data in JSON format. The generated JSON date is sent to Azure Event Hubs and passed this stream into Azure Stream Analytics job which is storing the data into a Azure blob Storage as well as feeding the output into a PowerBI sink. We designed a live dashboard in Power BI showing the incoming data as well.
 
-## Run the sample
-The next steps depend on whether you just want to deploy the sample or you want to both deploy and run it.
+In addition to this we prepared an experiment in Azure Machine Learning to predict when will the right time to offer the product(s) of the bank to the customers.
 
-### Deploying the sample
-
-- Select Build > Deploy Solution. 
-
-### Deploying and running the sample
-
-- To debug the sample and then run it, press F5 or select Debug >  Start Debugging. To run the sample without debugging, press Ctrl+F5 or select Debug > Start Without Debugging. 
+Technologies used : <br>
+ 1) Window 10 UWP app running on Windows 10 IoT Core on a Raspberry PI2<br>
+ 2) Cognitive Services (Emotions API specifically)<br>
+ 3) Azure Events Hub, Azure Stream Analytics<br>
+ 4) Power BI <br>
+ 5) Azure Machine Learning<br>
